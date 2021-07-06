@@ -1,7 +1,13 @@
 package com.delivery.data.db.jpa.repositories;
 
-import com.delivery.data.db.jpa.entities.CousineData;
-import com.delivery.data.db.jpa.entities.StoreData;
+import static com.delivery.TestEntityGenerator.randomAddress;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +18,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
-import static com.delivery.TestEntityGenerator.randomAddress;
-import static org.assertj.core.api.Assertions.assertThat;
+import com.delivery.data.db.jpa.entities.CousineData;
+import com.delivery.data.db.jpa.entities.StoreData;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

@@ -21,7 +21,7 @@ public class AuthenticateCustomerUseCase extends UseCase<AuthenticateCustomerUse
     @Override
     public OutputValues execute(InputValues input) {
         Authentication authentication = authenticationManager.authenticate(input.getAuthenticationToken());
-
+        System.out.print("ran");
         return new OutputValues(jwtProvider.generateToken(authentication));
     }
 

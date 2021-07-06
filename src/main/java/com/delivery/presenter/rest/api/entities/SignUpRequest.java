@@ -1,6 +1,8 @@
 package com.delivery.presenter.rest.api.entities;
 
 import com.delivery.core.usecases.customer.CreateCustomerUseCase;
+
+import lombok.AllArgsConstructor;
 import lombok.Value;
 
 import javax.validation.constraints.Email;
@@ -8,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Value
+@AllArgsConstructor
 public class SignUpRequest {
     @NotBlank
     @Size(min = 4, max = 50)
@@ -32,4 +35,14 @@ public class SignUpRequest {
                 signUpRequest.getAddress(),
                 signUpRequest.getPassword());
     }
+
+	public SignUpRequest() {
+		super();
+		this.name = "";
+		this.email = "";
+		this.address = "";
+		this.password = "";
+	}
+
+    
 }

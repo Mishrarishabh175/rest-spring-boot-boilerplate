@@ -47,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = OrderController.class, secure = false)
+@WebMvcTest(value = OrderController.class)
 public class OrderControllerTest extends BaseControllerTest {
 
     private static final String TOKEN = "token";
@@ -137,7 +137,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", is("Order successfully delivered")));
     }
@@ -162,7 +162,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", is("Order successfully paid")));
     }
@@ -187,7 +187,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", is("Order successfully canceled")));
     }
@@ -215,7 +215,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name", is(customer.getName())));
     }
 
@@ -239,7 +239,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(order.getId().getNumber().intValue())));
     }
 
@@ -274,7 +274,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isNotFound())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(false)))
                 .andExpect(jsonPath("$.message", is("Error")));
     }
@@ -300,7 +300,7 @@ public class OrderControllerTest extends BaseControllerTest {
         // then
         mockMvc.perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(header().string("location", "http://localhost/Order/" + order.getId().getNumber()))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", is("order created successfully")));

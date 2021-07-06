@@ -1,19 +1,31 @@
 package com.delivery.presenter.rest.api.entities;
 
-import lombok.Value;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Setter;
+import lombok.Value;
+
+
 @Value
-public class SignInRequest {
+@AllArgsConstructor
+@Setter
+public class SignInRequest{
 
     @Email
     @NotBlank
-    private final String email;
+    private String email;
 
     @NotBlank
     @Size(min = 6, max = 50)
-    private final String password;
+    private  String password;
+
+	public SignInRequest() {
+		super();
+		this.email = "";
+		this.password = "";
+	}
+    
 }

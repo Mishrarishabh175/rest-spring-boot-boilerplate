@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Product/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/Order/**").permitAll()
+                //.anyRequest().permitAll();
                 .anyRequest().authenticated();
 
         // @formatter:on

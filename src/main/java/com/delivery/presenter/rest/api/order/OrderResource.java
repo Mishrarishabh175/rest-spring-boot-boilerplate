@@ -32,21 +32,21 @@ public interface OrderResource {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    CompletableFuture<OrderResponse> getById(@PathVariable Long id);
+    CompletableFuture<OrderResponse> getById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/customer")
     @PreAuthorize("hasRole('USER')")
-    CompletableFuture<CustomerResponse> getCustomerById(@PathVariable Long id);
+    CompletableFuture<CustomerResponse> getCustomerById(@PathVariable("id") Long id);
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    CompletableFuture<ApiResponse> delete(@PathVariable Long id);
+    CompletableFuture<ApiResponse> delete(@PathVariable("id") Long id);
 
     @PostMapping("/{id}/payment")
     @PreAuthorize("hasRole('USER')")
-    CompletableFuture<ApiResponse> pay(@PathVariable Long id);
+    CompletableFuture<ApiResponse> pay(@PathVariable("id") Long id);
 
     @PostMapping("/{id}/delivery")
     @PreAuthorize("hasRole('USER')")
-    CompletableFuture<ApiResponse> delivery(@PathVariable Long id);
+    CompletableFuture<ApiResponse> delivery(@PathVariable("id") Long id);
 }

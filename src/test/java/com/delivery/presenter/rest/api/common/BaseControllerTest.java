@@ -5,16 +5,22 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import com.delivery.presenter.rest.api.cousine.CousineController;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseControllerTest {
 
     protected abstract MockMvc getMockMvc();
-
+    
+    
     protected RequestBuilder asyncDeleteRequest(String url, String token) throws Exception {
         return methodRequestBuilder(token, delete(url));
     }
@@ -22,9 +28,9 @@ public abstract class BaseControllerTest {
     protected RequestBuilder asyncGetRequest(String url, String token) throws Exception {
         return methodRequestBuilder(token, get(url));
     }
-
+    
     protected RequestBuilder asyncGetRequest(String url) throws Exception {
-        return asyncDispatch(getMockMvc().perform(get(url))
+        return asyncDispatch(getMockMvc().perform(get(url).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(request().asyncStarted())
                 .andReturn());
     }
@@ -38,7 +44,7 @@ public abstract class BaseControllerTest {
     protected RequestBuilder asyncPostRequest(String url, String payload, String token) throws Exception {
         // @formatter:off
         MockHttpServletRequestBuilder content = post(url)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
                 .header("Authorization", "Bearer " + token);
 
@@ -53,7 +59,8 @@ public abstract class BaseControllerTest {
         // @formatter:off
         return asyncDispatch(
                 getMockMvc().perform(
-                        post(url).contentType(MediaType.APPLICATION_JSON_UTF8).content(payload))
+                        post(url).contentType(MediaType.APPLICATION_JSON).content(payload))
+                .andExpect(status().isOk())
                 .andExpect(request().asyncStarted())
                 .andReturn());
         // @formatter:on
