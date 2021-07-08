@@ -9,6 +9,7 @@ import com.delivery.core.usecases.product.GetAllProductsUseCase;
 import com.delivery.core.usecases.product.GetProductUseCase;
 import com.delivery.core.usecases.product.SearchProductsByNameOrDescriptionUseCase;
 import com.delivery.presenter.rest.api.common.BaseControllerTest;
+import com.delivery.presenter.rest.api.common.GlobalExceptionHandler;
 import com.delivery.presenter.rest.api.cousine.CousineController;
 import com.delivery.presenter.usecases.UseCaseExecutorImpl;
 
@@ -67,7 +68,9 @@ public class ProductControllerTest extends BaseControllerTest {
     @Before
     public void setup() throws Exception
     {
-    	mockMvc= MockMvcBuilders.standaloneSetup(productController).build();
+    	mockMvc= MockMvcBuilders.standaloneSetup(productController)
+    			.setControllerAdvice(new GlobalExceptionHandler())
+    			.build();
     }
 
     @Override
@@ -90,13 +93,11 @@ public class ProductControllerTest extends BaseControllerTest {
         RequestBuilder payload = asyncGetRequest("/Product/" + id.getNumber());
 
         // then
-        String s=mockMvc.perform(payload)
+        mockMvc.perform(payload)
                 .andExpect(status().isNotFound())
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse().getContentAsString();
-                //.andExpect(jsonPath("$.success", is(false)))
-                //.andExpect(jsonPath("$.message", is("Error")));
-        System.out.println("Hello   "+s);
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Error")));
     }
 
     @Test

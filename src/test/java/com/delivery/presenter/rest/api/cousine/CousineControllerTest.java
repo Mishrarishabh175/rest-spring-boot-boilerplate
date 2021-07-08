@@ -9,6 +9,7 @@ import com.delivery.core.usecases.cousine.GetAllCousinesUseCase;
 import com.delivery.core.usecases.cousine.GetStoresByCousineUseCase;
 import com.delivery.core.usecases.cousine.SearchCousineByNameUseCase;
 import com.delivery.presenter.rest.api.common.BaseControllerTest;
+import com.delivery.presenter.rest.api.common.GlobalExceptionHandler;
 import com.delivery.presenter.usecases.UseCaseExecutorImpl;
 
 import org.aspectj.util.LangUtil.ProcessController.Thrown;
@@ -70,7 +71,9 @@ public class CousineControllerTest extends BaseControllerTest {
     @Before
     public void setup() throws Exception
     {
-    	mockMvc= MockMvcBuilders.standaloneSetup(cousineController).build();
+    	mockMvc= MockMvcBuilders.standaloneSetup(cousineController)
+    			.setControllerAdvice(new GlobalExceptionHandler())
+    			.build();
     }
     @Override
     protected MockMvc getMockMvc() {
@@ -93,9 +96,9 @@ public class CousineControllerTest extends BaseControllerTest {
 
         // then
         mockMvc.perform(payload)
-                .andExpect(status().isNotFound());
-                //.andExpect(jsonPath("$.success", is(false)))
-                //.andExpect(jsonPath("$.message", is("Error")));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Error")));
         
     }
 

@@ -10,6 +10,7 @@ import com.delivery.core.usecases.store.GetProductsByStoreUseCase;
 import com.delivery.core.usecases.store.GetStoreUseCase;
 import com.delivery.core.usecases.store.SearchStoresByNameUseCase;
 import com.delivery.presenter.rest.api.common.BaseControllerTest;
+import com.delivery.presenter.rest.api.common.GlobalExceptionHandler;
 import com.delivery.presenter.rest.api.cousine.CousineController;
 import com.delivery.presenter.usecases.UseCaseExecutorImpl;
 
@@ -71,7 +72,9 @@ public class StoreControllerTest extends BaseControllerTest {
     @Before
     public void setup() throws Exception
     {
-    	mockMvc= MockMvcBuilders.standaloneSetup(storeController).build();
+    	mockMvc= MockMvcBuilders.standaloneSetup(storeController)
+    			.setControllerAdvice(new GlobalExceptionHandler())
+    			.build();
     }
 
     @Override
@@ -201,9 +204,9 @@ public class StoreControllerTest extends BaseControllerTest {
 
         // then
         mockMvc.perform(payload)
-                .andExpect(status().isNotFound());
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                //.andExpect(jsonPath("$.success", is(false)))
-                //.andExpect(jsonPath("$.message", is("Error")));
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Error")));
     }
 }
