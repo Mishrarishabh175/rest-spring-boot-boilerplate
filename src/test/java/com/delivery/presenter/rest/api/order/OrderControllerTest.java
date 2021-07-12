@@ -252,7 +252,7 @@ public class OrderControllerTest extends BaseControllerTest {
 
         // then
         mockMvc
-                .perform(post("/Order").contentType(MediaType.APPLICATION_JSON_UTF8).content(payload))
+                .perform(post("/Order").contentType(MediaType.APPLICATION_JSON).content(payload))
                 .andExpect(status().isUnauthorized());
     }
 

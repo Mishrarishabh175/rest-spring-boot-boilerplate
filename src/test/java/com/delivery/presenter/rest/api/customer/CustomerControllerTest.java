@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -27,10 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.delivery.core.domain.Customer;
 import com.delivery.core.domain.EmailAlreadyUsedException;
-import com.delivery.core.domain.UsernameNotFoundException;
 import com.delivery.core.entities.TestCoreEntityGenerator;
 import com.delivery.core.usecases.customer.CreateCustomerUseCase;
 import com.delivery.presenter.rest.api.common.BaseControllerTest;
+import com.delivery.presenter.rest.api.common.GlobalExceptionHandler;
 import com.delivery.presenter.rest.api.entities.SignInRequest;
 import com.delivery.presenter.rest.api.entities.SignUpRequest;
 import com.delivery.presenter.usecases.UseCaseExecutorImpl;
@@ -73,7 +74,9 @@ public class CustomerControllerTest extends BaseControllerTest {
     @Before
     public void setup() throws Exception
     {
-    	mockMvc= MockMvcBuilders.standaloneSetup(customerController).build();
+    	mockMvc= MockMvcBuilders.standaloneSetup(customerController)
+    			.setControllerAdvice(new GlobalExceptionHandler())
+    			.build();
     }
 
     @Before
@@ -132,10 +135,10 @@ public class CustomerControllerTest extends BaseControllerTest {
 
         // then
         mockMvc.perform(request)
-                .andExpect(status().isBadRequest());
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                //.andExpect(jsonPath("$.success", is(false)))
-                //.andExpect(jsonPath("$.message", is("Error")));
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Error")));
     }
 
     @Test
@@ -159,10 +162,10 @@ public class CustomerControllerTest extends BaseControllerTest {
 
         // then
         mockMvc.perform(request)
-                .andExpect(status().isBadRequest());
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                //.andExpect(jsonPath("$.success", is(false)))
-                //.andExpect(jsonPath("$.message", is("Error")));
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Error")));
     }
 
     @Test

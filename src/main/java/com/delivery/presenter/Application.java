@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
-@RestController
 @SpringBootApplication(scanBasePackages = {"com.delivery.presenter", "com.delivery.data.db.jpa"})
 public class Application {
 
@@ -19,10 +18,5 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-    @GetMapping("/hello")
-    public void hello()
-    {
-    	System.out.println("Hello World");
     }
 }
