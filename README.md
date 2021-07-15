@@ -1,4 +1,4 @@
-![Build Status](https://github.com/github/docs/actions/workflows/gradle.yml/badge.svg?branch=main)
+![Build Status](https://github.com/Mishrarishabh175/rest-spring-boot-boilerplate/actions/workflows/gradle.yml/badge.svg?branch=main)
 
 
 
