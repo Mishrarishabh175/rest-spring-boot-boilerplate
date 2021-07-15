@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/eliostvs/clean-architecture-delivery-example.svg?branch=master)](https://travis-ci.org/eliostvs/clean-architecture-delivery-example)
+[![Build Status]
 
 # Clean Architecture Example
 
