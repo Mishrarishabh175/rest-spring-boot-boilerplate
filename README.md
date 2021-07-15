@@ -1,4 +1,5 @@
-![Build Status]
+![Build Status](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 
 # Clean Architecture Example
 
