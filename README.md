@@ -1,4 +1,4 @@
-[![Build Status]
+![Build Status]
 
 # Clean Architecture Example
 
